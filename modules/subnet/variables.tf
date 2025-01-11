@@ -7,6 +7,6 @@ variable "subnet" {
     availability_zone = string
     region            = optional(string, "ap-southeast-2")
     description       = optional(string, "Create by Terraform")
-    tags              = optional(map(any), { "Type" = "VPC" })
+    tags              = optional(map(any), { "Type" = "Subnet" })
   }))
 }

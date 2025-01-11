@@ -9,13 +9,13 @@ This demo will walked you through the implementation approach of 3-tier architec
 - [  ] Modules Implementation
   - [ x ] vpc
   - [ x ] subnet
-  - [  ] vpc-route-table
-  - [  ] vpc-route
-  - [  ] security-group
-  - [  ] security-group-rule
+  - [ x ] vpc-route
+  - [ x ] security-group
+  - [ x ] security-group-rule
   - [  ] vm
   - [  ] database
   - [  ] load balancer 
+  - [  ] eip
   - [ x ] enterprise_project
 - [  ] Verify
 
@@ -48,8 +48,12 @@ Record ``` 11-1-2025 ```
 - Implement module
 - Normally, ```I will add doc for individual module, if interested in, we can discussed my full best practices later```.
 - Found something interest in Enterprise Project Service resource, decided to use it.
-- finish module vpc, subnet, enterprise_project_id, vpc-route
-- decide not to use route table due to weird behavior and seems only route its fine.
+- finish based line resource module
+- decided not to use route table due to weird behavior and seems only route its fine.
+- decided to strict to normal elb, eip
+- I also do validation for input, but due to time and the configuration gathering practice, so no val.
+- try use cases on workspace
+- add some based tf resource
 
 ## Reference
 
