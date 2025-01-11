@@ -16,6 +16,7 @@ This demo will walked you through the implementation approach of 3-tier architec
   - [  ] vm
   - [  ] database
   - [  ] load balancer 
+  - [ x ] enterprise_project
 - [  ] Verify
 
 ## Implementation
@@ -46,6 +47,9 @@ Record ``` 10-1-2025 ```
 Record ``` 11-1-2025 ```
 - Implement module
 - Normally, ```I will add doc for individual module, if interested in, we can discussed my full best practices later```.
+- Found something interest in Enterprise Project Service resource, decided to use it.
+- finish module vpc, subnet, enterprise_project_id, vpc-route
+- decide not to use route table due to weird behavior and seems only route its fine.
 
 ## Reference
 
