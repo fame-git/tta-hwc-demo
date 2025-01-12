@@ -7,6 +7,6 @@ variable "kms" {
     key_description       = optional(string, "Create by Terraform")
     enterprise_project_id = optional(string, "default")
     rotation_interval     = optional(number, "365")
-    pending_days          = optional(string, "356")
+    pending_days          = optional(string, "365")
   }))
 }

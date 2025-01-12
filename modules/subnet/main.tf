@@ -3,6 +3,7 @@ resource "huaweicloud_vpc_subnet" "this" {
   name              = each.value.name
   cidr              = each.value.cidr
   vpc_id            = each.value.vpc_id
+  gateway_ip        = cidrhost(each.value.cidr, 1)
   region            = each.value.region
   description       = each.value.description
   availability_zone = each.value.availability_zone

@@ -4,21 +4,21 @@ This demo will walked you through the implementation approach of 3-tier architec
 
 ## Checklist
 
-- [ x ] Init Repository
-- [] Design Infra
-- [] Modules Implementation
+- [x] Init Repository
+- [ ] Design Infra
+- [ ] Modules Implementation
   - [x] vpc
   - [x] subnet
   - [x] vpc-route
   - [x] security-group
   - [x] security-group-rule
   - [x] vm
-  - [] database
-  - [] load balancer 
+  - [ ] database
+  - [ ] load balancer 
   - [x] eip
   - [x] enterprise_project
   - [x] kms
-- [] Verify
+- [ ] Verify
 
 ## Implementation
 
@@ -52,6 +52,46 @@ terraform workspace select (dev/prod)
 
 # Right now you will have multiple state dev and prod
 ```
+### Configuration Design
+In terms of infrastructure, naming the resource is crucial, bcoz, it is gonna be up there for so long, so standard naming for individual resource will enhance traceability for admin, the CIDR block of resource, config of compute instance in vm, database
+
+```Naming convention```: project-name + environment + resource + index(if it multiple or naming)
+
+```sh
+# Enterprise project ID
+name = tta
+
+# VPC config
+name = tta-dev-vpc
+cidr = 10.0.0.0/16
+
+# Subnet config
+# Subnet-frontend
+name = tta-dev-subnet-front
+cidr = 10.0.0.0/24
+
+# Subnet-backend
+name = tta-dev-subnet-back
+cidr = 10.0.0.0/22
+
+# Subnet-db
+name = tta-dev-subnet-db
+cidr = 10.0.1.0/24
+
+# KMS
+key_alias = tta-dev-kms-key
+```
+### Run step
+
+Command for running
+```sh
+# Apply multiple ENV
+terraform apply -var-file=$PATH/dev.tfvars
+
+# FMT for linting
+terraform fmt
+```
+
 
 ## Noted
 Record ``` 10-1-2025 ``` 
@@ -77,6 +117,7 @@ Record ``` 11-1-2025 ```
 Record ``` 12-1-2025 ```
 - Add kms module for server side encryption, and add sub module in vm, loadbalancer, eip
 - Rethink on 3-tier requirement structure
+- add some potential config
 
 ## Reference
 
