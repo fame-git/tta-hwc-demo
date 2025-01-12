@@ -5,6 +5,7 @@ variable "vm" {
     region             = optional(string, "ap-southeast-2")
     flavor_id          = string
     image_id           = optional(string)
+    image_name         = optional(string)
     security_group_ids = optional(list(string))
     availability_zone  = optional(string, "ap-southeast-2a")
     network = list(object({
@@ -36,7 +37,7 @@ variable "vm" {
     delete_eip_on_termination = optional(bool, false)
 
     description           = optional(string, "CreatedByTerraform")
-    enterprise_project_id = optional(string, "")
-    tags                  = optional(map(any), null)
+    enterprise_project_id = optional(string, "default")
+    tags                  = optional(map(any), { "Type" = "ECS" })
   }))
 }

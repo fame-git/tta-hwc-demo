@@ -5,7 +5,7 @@ This demo will walked you through the implementation approach of 3-tier architec
 ## Checklist
 
 - [x] Init Repository
-- [ ] Design Infra
+- [x] Design Infra
 - [ ] Modules Implementation
   - [x] vpc
   - [x] subnet
@@ -80,16 +80,39 @@ cidr = 10.0.1.0/24
 
 # KMS
 key_alias = tta-dev-kms-key
+
+# Security Group
+sg_front = tta-dev-sg-front
+sg_back = tta-dev-sg-back
+sg_db = tta-dev-sg-db
+
+# VM
+frontend_vm = [
+  name = "tta-dev-vm-front"
+  spec = "s3.small.1"
+  image = "CentOS 8.2 64bit"
+  storage = "SAS", 40
+]
+
+backend_vm = [
+  name = "tta-dev-vm-back"
+  spec = "s3.small.1"
+  image = "CentOS 8.2 64bit"
+  storage = "SAS", 40
+]
 ```
 ### Run step
 
 Command for running
 ```sh
-# Apply multiple ENV
-terraform apply -var-file=$PATH/dev.tfvars
+# Init every time add new module
+terraform init
 
 # FMT for linting
 terraform fmt
+
+# Apply multiple ENV
+terraform apply -var-file=$PATH/$(your_tfvars_file)
 ```
 
 
@@ -118,6 +141,9 @@ Record ``` 12-1-2025 ```
 - Add kms module for server side encryption, and add sub module in vm, loadbalancer, eip
 - Rethink on 3-tier requirement structure
 - add some potential config
+- test some based line resource on infra
+- add Run step section
+- ```found painpoint of my approach``` but will make wrong to right
 
 ## Reference
 

@@ -54,3 +54,34 @@ variable "kms_key" {
     enterprise_project = optional(string, "default")
   }))
 }
+
+# Security Group
+variable "sec_group" {
+  description = "Security Group"
+  type = list(object({
+    name               = string
+    enterprise_project = optional(string, "default")
+    tags               = optional(map(any), { "Type" = "Security Group" })
+  }))
+}
+
+# VM
+variable "vm" {
+  description = "ECS"
+  type = list(object({
+    name           = string
+    flavor_id      = string
+    image_name     = optional(string)
+    image_id       = optional(string)
+    security_group = optional(string)
+    network = list(object({
+      name        = string
+      fixed_ip_v4 = optional(string)
+    }))
+    system_disk_type    = optional(string, "GPSSD")
+    system_disk_size    = optional(number)
+    system_disk_kms_key = optional(string)
+    enterprise_project  = optional(string, "default")
+    tags                = optional(map(any), { "Type" = "ECS" })
+  }))
+}

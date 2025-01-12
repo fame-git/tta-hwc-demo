@@ -3,6 +3,7 @@ resource "huaweicloud_compute_instance" "this" {
   name               = each.value.name
   flavor_id          = each.value.flavor_id
   image_id           = each.value.image_id
+  image_name         = each.value.image_name
   security_group_ids = each.value.security_group_ids
   availability_zone  = each.value.availability_zone
   dynamic "network" {

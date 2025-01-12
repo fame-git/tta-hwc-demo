@@ -5,6 +5,7 @@ resource "huaweicloud_kms_key" "this" {
     region                = each.value.region
     key_description       = each.value.key_description
     enterprise_project_id = each.value.enterprise_project_id
+    rotation_enabled      = each.value.rotation_enabled
     rotation_interval     = each.value.rotation_interval
     pending_days          = each.value.pending_days
 }
