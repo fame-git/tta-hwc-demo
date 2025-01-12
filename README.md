@@ -5,19 +5,20 @@ This demo will walked you through the implementation approach of 3-tier architec
 ## Checklist
 
 - [ x ] Init Repository
-- [  ] Design Infra
-- [  ] Modules Implementation
-  - [ x ] vpc
-  - [ x ] subnet
-  - [ x ] vpc-route
-  - [ x ] security-group
-  - [ x ] security-group-rule
-  - [  ] vm
-  - [  ] database
-  - [  ] load balancer 
-  - [  ] eip
-  - [ x ] enterprise_project
-- [  ] Verify
+- [] Design Infra
+- [] Modules Implementation
+  - [x] vpc
+  - [x] subnet
+  - [x] vpc-route
+  - [x] security-group
+  - [x] security-group-rule
+  - [] vm
+  - [] database
+  - [] load balancer 
+  - [x] eip
+  - [x] enterprise_project
+  - [x] kms
+- [] Verify
 
 ## Implementation
 
@@ -33,6 +34,24 @@ To create reuseable module, I will strict to terraform practice which each indiv
 contains main.tf, version.tf, variables.tf, outputs.tf . Moreover, for simplicity, I will test all modules in real environment.
 
 I will normally, read through provider doc first, and start with variables.tf to start on design input along with target resource argument.
+
+### Power of Workspace
+
+In some senses, when we want to work in scenarios like sit, uat which requried identical resource, but not the same amount, applied terraform workspace, allow to distinguish the state like prod, uat so that we can applied multiple tfvars along with same resources
+
+```sh
+# Design identical moultiple env (In this case dev and prod)
+# Run workspace list see the current workspace (should be default)
+terraform workspace list
+
+# Create workspace dev and prod
+terraform workspace new (dev/prod)
+
+# Switch between workspace
+terraform workspace select (dev/prod)
+
+# Right now you will have multiple state dev and prod
+```
 
 ## Noted
 Record ``` 10-1-2025 ``` 
@@ -54,6 +73,9 @@ Record ``` 11-1-2025 ```
 - I also do validation for input, but due to time and the configuration gathering practice, so no val.
 - try use cases on workspace
 - add some based tf resource
+
+Record ``` 12-1-2025 ```
+- Add kms module for server side encryption, and add sub module in vm, loadbalancer, eip
 
 ## Reference
 
