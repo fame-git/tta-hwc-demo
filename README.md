@@ -12,7 +12,7 @@ This demo will walked you through the implementation approach of 3-tier architec
   - [x] vpc-route
   - [x] security-group
   - [x] security-group-rule
-  - [] vm
+  - [x] vm
   - [] database
   - [] load balancer 
   - [x] eip
@@ -76,6 +76,7 @@ Record ``` 11-1-2025 ```
 
 Record ``` 12-1-2025 ```
 - Add kms module for server side encryption, and add sub module in vm, loadbalancer, eip
+- Rethink on 3-tier requirement structure
 
 ## Reference
 
