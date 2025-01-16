@@ -132,3 +132,43 @@ variable "nat_gateway" {
     tags               = optional(map(any), { "Type" = "NAT" })
   }))
 }
+
+variable "eip" {
+  description = "Elastic IP for Outer world"
+  type = list(object({
+    name = string
+    publicip = list(object({
+      type = optional(string, "5_bgp")
+    }))
+
+    bandwidth = list(object({
+      share_type = string
+      name       = optional(string)
+    }))
+    enterprise_project = optional(string, "default")
+    tags               = optional(map(any), { "Type" = "EIP" })
+  }))
+}
+
+variable "snat" {
+  description = "SNAT Rule"
+  type = list(object({
+    nat_gateway = string
+    eip         = string
+    subnet_name = string
+    source_type = number
+  }))
+}
+
+variable "sec_group_rule" {
+  description = "Security Group Rule"
+  type = map(object({
+    sec_group_name = string
+    direction      = string
+    ethertype      = string
+    protocol       = string
+    ports          = string
+    action         = string
+    destination    = string
+  }))
+}

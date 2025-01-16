@@ -10,13 +10,15 @@ variable "nat_gateway_id" {
 }
 
 variable "floating_ip_id" {
-  description = "Floating IP ID"
+  description = "EIP ID"
   type        = string
+  default = null
 }
 
 variable "global_eip_id" {
-  description = "EIP ID"
+  description = "GEIP ID"
   type        = string
+  default = null
 }
 
 variable "subnet_id" {
@@ -34,7 +36,7 @@ variable "cidr" {
 variable "source_type" {
   description = "Source Type"
   type        = number
-  default     = null
+  default     = 0
 }
 
 variable "description" {

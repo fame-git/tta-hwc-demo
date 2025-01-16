@@ -88,3 +88,96 @@ vm = [
     enterprise_project  = "tta-prod"
   },
 ]
+
+database = [
+  {
+    name                = "tta-prod-db"
+    flavor              = "rds.pg.n1.medium.2.ha"
+    vpc_name            = "tta-prod-vpc"
+    subnet_name         = "tta-prod-subnet-db"
+    security_group_name = "tta-prod-sg-db"
+    db = [
+      {
+        type     = "PostgreSQL"
+        version  = "16"
+        password = "anyonecanjoin"
+      }
+    ]
+
+    volume = [
+      {
+        size               = 100
+        type               = "ESSD"
+        disk_encryption_id = "tta-prod-kms-key"
+      }
+    ]
+
+    backup_strategy = [
+      {
+        keep_days  = 1
+        start_time = "08:00-09:00"
+      }
+    ]
+
+    enterprise_project = "tta-prod"
+  },
+]
+
+nat_gateway = [
+  {
+    name               = "tta-prod-natgateway"
+    spec               = "3"
+    vpc_name           = "tta-prod-vpc"
+    subnet_name        = "tta-prod-subnet-front"
+    enterprise_project = "tta-prod"
+  },
+]
+
+eip = [
+  {
+    name = "tta-prod-eip"
+    publicip = [
+      {
+        type = "10_bgp"
+      }
+    ]
+
+    bandwidth = [
+      {
+        share_type = "PER"
+        name       = "tta-prod-bandwidth"
+      }
+    ]
+    enterprise_project = "tta-prod"
+  }
+]
+
+snat = [
+  {
+    nat_gateway = "tta-prod-natgateway"
+    eip         = "tta-prod-eip"
+    subnet_name = "tta-prod-subnet-front"
+    source_type = 0
+  }
+]
+
+sec_group_rule = {
+  "front-to-back" = {
+    sec_group_name = "tta-prod-sg-front"
+    direction      = "ingress"
+    ethertype      = "IPv4"
+    protocol       = "tcp"
+    ports          = "22"
+    action         = "allow"
+    destination    = "tta-prod-sg-back"
+  },
+  "back-to-db" = {
+    sec_group_name = "tta-prod-sg-back"
+    direction      = "ingress"
+    ethertype      = "IPv4"
+    protocol       = "tcp"
+    ports          = "5432"
+    action         = "allow"
+    destination    = "tta-prod-sg-db"
+  }
+}

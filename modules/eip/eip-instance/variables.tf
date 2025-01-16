@@ -19,6 +19,6 @@ variable "eip" {
       charge_mode = optional(string, "traffic")
     }))
     enterprise_project_id = optional(string, "default")
-    tags                  = optional(map(any), { "Type" = "VPC" })
+    tags                  = optional(map(any), { "Type" = "EIP" })
   }))
 }

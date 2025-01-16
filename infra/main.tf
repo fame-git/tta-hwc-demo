@@ -95,6 +95,8 @@ module "database" {
   auto_renew            = each.value.auto_renew
   enterprise_project_id = module.enterprise.id[each.value.enterprise_project]
   tags                  = merge(local.common_tags, each.value.tags)
+
+  depends_on = [module.enterprise, module.subnet, module.sec_group]
 }
 
 module "nat_gateway" {
@@ -107,4 +109,38 @@ module "nat_gateway" {
   subnet_id             = module.subnet.id[each.value.subnet_name]
   enterprise_project_id = module.enterprise.id[each.value.enterprise_project]
   tags                  = merge(local.common_tags, each.value.tags)
+
+  depends_on = [module.enterprise, module.subnet, module.sec_group]
+}
+
+module "eip" {
+  source = "../modules/eip/eip-instance"
+  eip = [
+    for v in var.eip :
+    merge(v,
+      { enterprise_project_id = module.enterprise.id[v.enterprise_project] },
+      { tags = merge(local.common_tags, v.tags) },
+    )
+  ]
+}
+
+module "snat" {
+  source         = "../modules/nat-gateway/snat-rules"
+  for_each       = { for v in var.snat : "${v.nat_gateway}-rule" => v }
+  nat_gateway_id = module.nat_gateway[each.value.nat_gateway].id
+  floating_ip_id = module.eip.id[each.value.eip]
+  subnet_id      = module.subnet.id[each.value.subnet_name]
+  source_type    = each.value.source_type
+}
+
+module "sec_group_rule" {
+  source            = "../modules/security-group-rule"
+  for_each          = var.sec_group_rule
+  security_group_id = module.sec_group.id[each.value.sec_group_name]
+  direction         = each.value.direction
+  ethertype         = each.value.ethertype
+  protocol          = each.value.protocol
+  ports             = each.value.ports
+  action            = each.value.action
+  remote_group      = module.sec_group.id[each.value.destination]
 }

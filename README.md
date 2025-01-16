@@ -18,7 +18,7 @@ This demo will walked you through the implementation approach of 3-tier architec
   - [x] eip
   - [x] enterprise_project
   - [x] kms
-- [ ] Verify
+- [x] Verify
 
 ## Implementation
 
@@ -27,6 +27,8 @@ This demo will walked you through the implementation approach of 3-tier architec
 In design phase, we planned for the 3-tier layer which will aligned in:
 vpc, 3 subnet (outer, middle, inner), eip, nat, 3 compute resources (2 vm, 1 db),
 security. In addition, outer resources configuration are aligned with mentioned resources.
+
+![Simple Plain 3-tier Architecture Design](./design/tta-demo-diagram.png)
 
 ### Modules Practice
 
@@ -55,7 +57,7 @@ terraform workspace select (dev/prod)
 ### Configuration Design
 In terms of infrastructure, naming the resource is crucial, bcoz, it is gonna be up there for so long, so standard naming for individual resource will enhance traceability for admin, the CIDR block of resource, config of compute instance in vm, database
 
-```Naming convention```: project-name + environment + resource + index(if it multiple or naming)
+```Naming convention```: project-name + environment + resource + index(if it multiple or naming) Here are some example the pattern of naming potentially be the same
 
 ```sh
 # Enterprise project ID
@@ -100,6 +102,46 @@ backend_vm = [
   image = "CentOS 8.2 64bit"
   storage = "SAS", 40
 ]
+
+# Database
+postgresql = [
+  name    = "tta-dev-db"
+  flavor  = "rds.pg.n1.medium.2.ha"
+  db = [
+    {
+      type     = "PostgreSQL"
+      version  = "16"
+      password = "anyonecanjoin"
+    }
+  ]
+  volume = [
+    {
+      size               = 40
+      type               = "ULTRAHIGH"
+      disk_encryption_id = "tta-dev-kms-key"
+    }
+  ]
+  backup_strategy = [
+    {
+      keep_days  = 1
+      start_time = "08:00-09:00"
+    }
+  ]
+]
+
+# Nat Gateway
+nat_gateway = [
+  name               = "tta-dev-natgateway"
+  spec               = "1"
+]
+
+# EIP
+eip = [
+  name = "tta-dev-eip"
+]
+
+# SNAT Rule, Security Group Rule
+
 ```
 ### Run step
 
@@ -111,7 +153,7 @@ terraform init
 # FMT for linting
 terraform fmt
 
-# Apply multiple ENV
+# Apply multiple ENV (we used tfvars, to centralized input config)
 terraform apply -var-file=$PATH/$(your_tfvars_file)
 ```
 
@@ -151,6 +193,8 @@ Record ``` 16-1-2025 ```
 - redesign, security group rule
 - redesign, vpc route
 - learn another things, sometime data source, is important, but to late will improve later
+- add follow up design
+- finish, i supposed, as far as, i can
 
 ## Reference
 

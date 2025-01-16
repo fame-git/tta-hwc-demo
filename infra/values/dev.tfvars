@@ -132,3 +132,52 @@ nat_gateway = [
     enterprise_project = "tta-dev"
   },
 ]
+
+eip = [
+  {
+    name = "tta-dev-eip"
+    publicip = [
+      {
+        type = "5_bgp"
+      }
+    ]
+
+    bandwidth = [
+      {
+        share_type = "PER"
+        name       = "tta-dev-bandwidth"
+      }
+    ]
+    enterprise_project = "tta-dev"
+  }
+]
+
+snat = [
+  {
+    nat_gateway = "tta-dev-natgateway"
+    eip         = "tta-dev-eip"
+    subnet_name = "tta-dev-subnet-front"
+    source_type = 0
+  }
+]
+
+sec_group_rule = {
+  "front-to-back" = {
+    sec_group_name = "tta-dev-sg-front"
+    direction      = "ingress"
+    ethertype      = "IPv4"
+    protocol       = "tcp"
+    ports          = "22"
+    action         = "allow"
+    destination    = "tta-dev-sg-back"
+  },
+  "back-to-db" = {
+    sec_group_name = "tta-dev-sg-back"
+    direction      = "ingress"
+    ethertype      = "IPv4"
+    protocol       = "tcp"
+    ports          = "5432"
+    action         = "allow"
+    destination    = "tta-dev-sg-db"
+  }
+}

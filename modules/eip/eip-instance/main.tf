@@ -7,14 +7,14 @@ resource "huaweicloud_vpc_eip" "this" {
   period        = each.value.period
   auto_renew    = each.value.auto_renew
   dynamic "publicip" {
-    for_each = var.eip.publicip
-    content = {
+    for_each = each.value.publicip
+    content {
       type = publicip.value.type
     }
   }
   dynamic "bandwidth" {
-    for_each = var.eip.bandwidth
-    content = {
+    for_each = each.value.bandwidth
+    content {
       share_type  = bandwidth.value.share_type
       name        = bandwidth.value.name
       size        = bandwidth.value.size
