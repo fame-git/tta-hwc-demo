@@ -13,8 +13,8 @@ This demo will walked you through the implementation approach of 3-tier architec
   - [x] security-group
   - [x] security-group-rule
   - [x] vm
-  - [ ] database
-  - [ ] load balancer 
+  - [x] database
+  - [ ] nat-gateway
   - [x] eip
   - [x] enterprise_project
   - [x] kms
@@ -144,6 +144,11 @@ Record ``` 12-1-2025 ```
 - test some based line resource on infra
 - add Run step section
 - ```found painpoint of my approach``` but will make wrong to right
+
+Record ``` 16-1-2025 ```
+- Try new approach on new module
+- redesign, decide the new module, used nat, instead of database
+- redesign, security group rule
 
 ## Reference
 
