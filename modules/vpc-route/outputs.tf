@@ -1,9 +1,9 @@
 output "id" {
   description = "VPC Route ID"
-  value       = { for k, v in huaweicloud_vpc_route.this : k => v.id }
+  value       = huaweicloud_vpc_route.this.id
 }
 
 output "route_table_name" {
   description = "VPC Route Table name"
-  value       = { for k, v in huaweicloud_vpc_route.this : k => v.route_table_name }
+  value       = huaweicloud_vpc_route.this.route_table_name
 }

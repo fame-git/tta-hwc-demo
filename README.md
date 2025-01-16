@@ -6,7 +6,7 @@ This demo will walked you through the implementation approach of 3-tier architec
 
 - [x] Init Repository
 - [x] Design Infra
-- [ ] Modules Implementation
+- [x] Modules Implementation
   - [x] vpc
   - [x] subnet
   - [x] vpc-route
@@ -14,7 +14,7 @@ This demo will walked you through the implementation approach of 3-tier architec
   - [x] security-group-rule
   - [x] vm
   - [x] database
-  - [ ] nat-gateway
+  - [x] nat-gateway
   - [x] eip
   - [x] enterprise_project
   - [x] kms
@@ -147,8 +147,9 @@ Record ``` 12-1-2025 ```
 
 Record ``` 16-1-2025 ```
 - Try new approach on new module
-- redesign, decide the new module, used nat, instead of database
+- redesign, decide the new module, used nat, instead of elb
 - redesign, security group rule
+- redesign, vpc route
 
 ## Reference
 

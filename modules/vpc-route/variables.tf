@@ -1,11 +1,31 @@
-variable "vpc_route" {
-  description = "VPC Route Module"
-  type = map(object({
-    vpc_id      = string
-    destination = string
-    type        = string
-    nexthop     = string
-    description = optional(string, "Create by Terraform")
-    region      = optional(string, "ap-southeast-2")
-  }))
+variable "vpc_id" {
+  description = "VPC ID"
+  type        = string
+}
+
+variable "destination" {
+  description = "Destination"
+  type        = string
+}
+
+variable "type" {
+  description = "Route Type"
+  type        = string
+}
+
+variable "nexthop" {
+  description = "Nexthop where"
+  type        = string
+}
+
+variable "description" {
+  description = "Remark"
+  type        = string
+  default     = "Create By Terraform"
+}
+
+variable "route_table_id" {
+  description = "Route Table ID"
+  type        = string
+  default     = "default"
 }
