@@ -6,8 +6,8 @@ variable "region" {
 
 variable "availability_zone" {
   description = "Availability Zone for RDS"
-  type        = string
-  default     = "ap-southeast-2a"
+  type        = list(string)
+  default     = ["ap-southeast-2a"]
 }
 
 variable "name" {
@@ -63,7 +63,7 @@ variable "backup_strategy" {
   type = list(object({
     keep_days  = number
     start_time = string
-    period     = string
+    period     = optional(string, null)
   }))
 }
 

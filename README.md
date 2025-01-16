@@ -25,7 +25,7 @@ This demo will walked you through the implementation approach of 3-tier architec
 ### Planning Phase (Design, List Resources)
 
 In design phase, we planned for the 3-tier layer which will aligned in:
-vpc, 3 subnet (outer, middle, inner), eip, loadbalancer, 3 computer resources (2 vm, 1 db),
+vpc, 3 subnet (outer, middle, inner), eip, nat, 3 compute resources (2 vm, 1 db),
 security. In addition, outer resources configuration are aligned with mentioned resources.
 
 ### Modules Practice

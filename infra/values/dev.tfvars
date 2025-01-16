@@ -88,3 +88,37 @@ vm = [
     enterprise_project  = "tta-dev"
   },
 ]
+
+database = [
+  {
+    name                = "tta-dev-db"
+    flavor              = "rds.pg.n1.medium.2.ha"
+    vpc_name            = "tta-dev-vpc"
+    subnet_name         = "tta-dev-subnet-db"
+    security_group_name = "tta-dev-sg-db"
+    db = [
+      {
+        type     = "PostgreSQL"
+        version  = "16"
+        password = "anyonecanjoin"
+      }
+    ]
+
+    volume = [
+      {
+        size               = 40
+        type               = "ULTRAHIGH"
+        disk_encryption_id = "tta-dev-kms-key"
+      }
+    ]
+
+    backup_strategy = [
+      {
+        keep_days  = 1
+        start_time = "08:00-09:00"
+      }
+    ]
+
+    enterprise_project = "tta-dev"
+  },
+]

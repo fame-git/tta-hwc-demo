@@ -77,3 +77,22 @@ module "vm" {
 
   depends_on = [module.enterprise, module.subnet, module.sec_group]
 }
+
+module "database" {
+  source            = "../modules/database"
+  for_each          = { for v in var.database : v.name => v }
+  name              = each.value.name
+  flavor            = each.value.flavor
+  vpc_id            = module.vpc.id[each.value.vpc_name]
+  subnet_id         = module.subnet.id[each.value.subnet_name]
+  security_group_id = module.sec_group.id[each.value.security_group_name]
+  db                = each.value.db
+  volume = [
+    for v in each.value.volume :
+    merge(v, { disk_encryption_id = module.kms.id[v.disk_encryption_id] })
+  ]
+  backup_strategy       = each.value.backup_strategy
+  auto_renew            = each.value.auto_renew
+  enterprise_project_id = module.enterprise.id[each.value.enterprise_project]
+  tags                  = merge(local.common_tags, each.value.tags)
+}

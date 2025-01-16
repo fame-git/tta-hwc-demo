@@ -1,7 +1,7 @@
 resource "huaweicloud_rds_instance" "this" {
   name              = var.name
   region            = var.region
-  availability_zone = var_availability_zone
+  availability_zone = var.availability_zone
   flavor            = var.flavor
   vpc_id            = var.vpc_id
   subnet_id         = var.subnet_id
@@ -10,7 +10,7 @@ resource "huaweicloud_rds_instance" "this" {
     for_each = var.db
     content {
       type     = db.value.type
-      verion   = db.value.version
+      version  = db.value.version
       password = db.value.password
       port     = db.value.port
     }
@@ -25,12 +25,12 @@ resource "huaweicloud_rds_instance" "this" {
       trigger_threshold  = volume.value.trigger_threshold
     }
   }
-  dynamic "backup" {
+  dynamic "backup_strategy" {
     for_each = var.backup_strategy
     content {
-      keep_days  = backup.value.keep_days
-      start_time = backup.value.start_time
-      period     = backup.value.period
+      keep_days  = backup_strategy.value.keep_days
+      start_time = backup_strategy.value.start_time
+      period     = backup_strategy.value.period
     }
   }
   auto_renew            = var.auto_renew

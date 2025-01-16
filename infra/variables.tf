@@ -85,3 +85,37 @@ variable "vm" {
     tags                = optional(map(any), { "Type" = "ECS" })
   }))
 }
+
+variable "database" {
+  description = "DB"
+  type = list(object({
+    name                = string
+    region              = optional(string, "ap-southeast-2")
+    availability_zone   = optional(list(string), ["ap-southeast-2a"])
+    flavor              = string
+    vpc_name            = string
+    subnet_name         = string
+    security_group_name = string
+    db = list(object({
+      type     = string
+      version  = string
+      password = optional(string, null)
+      port     = optional(number, null)
+    }))
+    volume = list(object({
+      size               = number
+      type               = string
+      disk_encryption_id = optional(string, null)
+      limit_size         = optional(number, null)
+      trigger_threshold  = optional(number, null)
+    }))
+    backup_strategy = list(object({
+      keep_days  = number
+      start_time = string
+      period     = optional(string)
+    }))
+    auto_renew         = optional(string, "false")
+    enterprise_project = optional(string, "default")
+    tags               = optional(map(any), { "Type" = "RDS" })
+  }))
+}
