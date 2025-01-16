@@ -96,3 +96,15 @@ module "database" {
   enterprise_project_id = module.enterprise.id[each.value.enterprise_project]
   tags                  = merge(local.common_tags, each.value.tags)
 }
+
+module "nat_gateway" {
+  source                = "../modules/nat-gateway/gateway"
+  for_each              = { for v in var.nat_gateway : v.name => v }
+  name                  = each.value.name
+  region                = each.value.region
+  spec                  = each.value.spec
+  vpc_id                = module.vpc.id[each.value.vpc_name]
+  subnet_id             = module.subnet.id[each.value.subnet_name]
+  enterprise_project_id = module.enterprise.id[each.value.enterprise_project]
+  tags                  = merge(local.common_tags, each.value.tags)
+}

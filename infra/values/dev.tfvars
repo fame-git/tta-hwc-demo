@@ -122,3 +122,13 @@ database = [
     enterprise_project = "tta-dev"
   },
 ]
+
+nat_gateway = [
+  {
+    name               = "tta-dev-natgateway"
+    spec               = "1"
+    vpc_name           = "tta-dev-vpc"
+    subnet_name        = "tta-dev-subnet-front"
+    enterprise_project = "tta-dev"
+  },
+]

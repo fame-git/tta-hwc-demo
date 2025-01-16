@@ -119,3 +119,16 @@ variable "database" {
     tags               = optional(map(any), { "Type" = "RDS" })
   }))
 }
+
+variable "nat_gateway" {
+  description = "Public NAT Gateway"
+  type = list(object({
+    name               = string
+    region             = optional(string, "ap-southeast-2")
+    spec               = string
+    vpc_name           = string
+    subnet_name        = string
+    enterprise_project = optional(string, "default")
+    tags               = optional(map(any), { "Type" = "NAT" })
+  }))
+}

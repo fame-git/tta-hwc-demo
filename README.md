@@ -150,6 +150,7 @@ Record ``` 16-1-2025 ```
 - redesign, decide the new module, used nat, instead of elb
 - redesign, security group rule
 - redesign, vpc route
+- learn another things, sometime data source, is important, but to late will improve later
 
 ## Reference
 
