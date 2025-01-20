@@ -4,7 +4,7 @@ variable "sec_group" {
     name                  = string
     region                = optional(string, "ap-southeast-2")
     description           = optional(string, "Create by Terraform")
-    enterprise_project_id = optional(string, "default")
+    enterprise_project_id = optional(string, null)
     delete_default_rules  = optional(bool, false)
     tags                  = optional(map(any), { "Type" = "Security Group" })
   }))

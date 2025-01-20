@@ -37,7 +37,7 @@ variable "vm" {
     delete_eip_on_termination = optional(bool, false)
 
     description           = optional(string, "CreatedByTerraform")
-    enterprise_project_id = optional(string, "default")
+    enterprise_project_id = optional(string, null)
     tags                  = optional(map(any), { "Type" = "ECS" })
   }))
 }
