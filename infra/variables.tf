@@ -17,9 +17,9 @@ variable "secret_key" {
 variable "vpc" {
   description = "Virtual Private Connection"
   type = list(object({
-    name               = string
-    cidr               = string
-    tags               = optional(map(any), { "Type" = "VPC" })
+    name = string
+    cidr = string
+    tags = optional(map(any), { "Type" = "VPC" })
   }))
   default = null
 }
@@ -41,8 +41,8 @@ variable "subnet" {
 variable "sec_group" {
   description = "Security Group"
   type = list(object({
-    name               = string
-    tags               = optional(map(any), { "Type" = "Security Group" })
+    name = string
+    tags = optional(map(any), { "Type" = "Security Group" })
   }))
   default = null
 }

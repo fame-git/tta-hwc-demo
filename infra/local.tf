@@ -6,4 +6,10 @@ locals {
     "Owner"       = "Team Cannonball"
     "CreateBy"    = "Terraform"
   }
+
+  image_centos = data.huaweicloud_images_image.centos
+}
+
+data "huaweicloud_images_image" "centos" {
+  name         = "CentOS 8.2 64bit"
 }
