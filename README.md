@@ -1,4 +1,4 @@
-# TTA-HWC Demo
+# Ignore this branch, just reused and test some stuff
 
 This demo will walked you through the implementation approach of 3-tier architecture.
 
